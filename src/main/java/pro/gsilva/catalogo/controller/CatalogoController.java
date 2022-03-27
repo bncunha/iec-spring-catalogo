@@ -2,6 +2,7 @@ package pro.gsilva.catalogo.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -34,6 +35,8 @@ public class CatalogoController {
     public ModelAndView getMusicas() {
         ModelAndView mv = new ModelAndView("musicas");
         List<Musica> musicas = catalogoService.findAll();
+        List<Categoria> categorias = categoriaService.findAll();
+        mv.addObject("categorias", categorias);
         mv.addObject("musicas", musicas);
         return mv;
     }
@@ -79,10 +82,13 @@ public class CatalogoController {
     }
 
     @GetMapping("/musicas/pesquisar")
-    public ModelAndView pesquisar(@RequestParam("titulo") String titulo) {
+    public ModelAndView pesquisar(@RequestParam("titulo") String titulo, @RequestParam(value="categoria", required=false) Long idCategoria) {
         ModelAndView mv = new ModelAndView("musicas");
-        List<Musica> musicas = catalogoService.findByTitulo(titulo);
+        Categoria categoria = Objects.nonNull(idCategoria) ? categoriaService.findById(idCategoria) : null;
+        List<Musica> musicas = catalogoService.findByTituloAndCategoria(titulo, categoria);
+        List<Categoria> categorias = categoriaService.findAll();
         mv.addObject("musicas", musicas);
+        mv.addObject("categorias", categorias);
         return mv;
     }
     

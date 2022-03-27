@@ -42,5 +42,11 @@ public class CatalogoServiceImpl implements CatalogoService {
         String tituloLike = titulo + "%";
         return catalogoRepository.findAllByTituloIsLike(tituloLike);
     }
+    
+    @Override
+    public List<Musica> findByTituloAndCategoria(String titulo, Categoria categoria) {
+        String tituloLike = titulo + "%";
+        return catalogoRepository.findAllByTituloIsLikeAndCategoria(tituloLike, categoria);
+    }
 
 }

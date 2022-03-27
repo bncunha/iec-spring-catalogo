@@ -2,6 +2,7 @@ package pro.gsilva.catalogo.service;
 
 import java.util.List;
 
+import pro.gsilva.catalogo.model.Categoria;
 import pro.gsilva.catalogo.model.Musica;
 
 public interface CatalogoService {
@@ -11,4 +12,5 @@ public interface CatalogoService {
     void excluir(long id);
 
     List<Musica> findByTitulo(String titulo);
+	List<Musica> findByTituloAndCategoria(String titulo, Categoria categoria);
 }
