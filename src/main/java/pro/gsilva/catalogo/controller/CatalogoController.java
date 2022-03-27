@@ -7,8 +7,11 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import pro.gsilva.catalogo.model.Categoria;
 import pro.gsilva.catalogo.model.Musica;
 import pro.gsilva.catalogo.service.CatalogoService;
+import pro.gsilva.catalogo.service.CategoriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,9 @@ public class CatalogoController {
     
     @Autowired 
     private CatalogoService catalogoService;
+    
+    @Autowired 
+    private CategoriaService categoriaService;
 
     @RequestMapping(value="/musicas", method=RequestMethod.GET)
     public ModelAndView getMusicas() {
@@ -43,14 +49,20 @@ public class CatalogoController {
     @RequestMapping(value = "/musicas/edit/{id}", method = RequestMethod.GET)
     public ModelAndView getFormEdit(@PathVariable("id") long id) {
         ModelAndView mv = new ModelAndView("musicaForm");
+        List<Categoria> categorias = categoriaService.findAll();
         Musica musica = catalogoService.findById(id);
         mv.addObject("musica", musica);
+        mv.addObject("categorias", categorias);
         return mv;
     }
 
     @RequestMapping(value="/addMusica", method=RequestMethod.GET)
-    public String getMusicaForm(Musica musica) {
-        return "musicaForm";
+    public ModelAndView getMusicaForm(Musica musica) {
+    	ModelAndView mv = new ModelAndView("musicaForm");
+        List<Categoria> categorias = categoriaService.findAll();
+        mv.addObject("categorias", categorias);
+        System.out.println(categorias);
+        return mv;
     }
     
     @RequestMapping(value="/addMusica", method=RequestMethod.POST)

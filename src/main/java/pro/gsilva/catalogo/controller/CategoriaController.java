@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import pro.gsilva.catalogo.model.Categoria;
 import pro.gsilva.catalogo.model.Musica;
 import pro.gsilva.catalogo.service.CategoriaService;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,5 +74,11 @@ public class CategoriaController {
         Categoria categoria = categoriaService.findById(id);
         mv.addObject("categoria", categoria);
         return mv;
+    }
+    
+    @RequestMapping(value="/delCategoria/{id}", method=RequestMethod.GET)
+    public String delMusica(@PathVariable("id") long id) {
+		categoriaService.excluir(id);
+		return "redirect:/categorias";
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pro.gsilva.catalogo.model.Categoria;
 import pro.gsilva.catalogo.model.Musica;
 import pro.gsilva.catalogo.repository.CatalogoRepository;
 import pro.gsilva.catalogo.service.CatalogoService;

@@ -3,11 +3,14 @@ package pro.gsilva.catalogo.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -36,6 +39,10 @@ public class Musica {
     @NotBlank
     @Lob
     private String letra;
+    
+    @ManyToOne
+    @JoinColumn(name="idCategoria")
+    private Categoria categoria;
 
     
 }
