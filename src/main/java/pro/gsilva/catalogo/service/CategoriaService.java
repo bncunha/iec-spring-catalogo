@@ -8,4 +8,6 @@ import pro.gsilva.catalogo.model.Musica;
 public interface CategoriaService {
     Page<Categoria> findAll(Pageable pageable);
     Categoria save(Categoria categoria);
+    Categoria findById(long id);
+    void excluir(long id);
 }
